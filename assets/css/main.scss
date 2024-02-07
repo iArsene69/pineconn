@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 144 48% 94%;
+        --foreground: 111 7% 20%;
+        --theme-dark: 258.81 48.2% 27.25%;
+        --theme: 269.27 43.62% 36.86%;
+        --theme-light: 288.65 32.17% 54.9%;
+        --alter: 336.52 100% 90.98%;
+    }
+
+    .dark {
+        --background: 111 7% 20%;
+        --foreground: 144 48% 94%;
+        --theme-dark: 258.81 48.2% 27.25%;
+        --theme: 269.27 43.62% 36.86%;
+        --theme-light: 288.65 32.17% 54.9%;
+        --alter: 336.52 100% 90.98%;
+    }
+}
+
+@layer base{
+    body {
+        @apply bg-background text-foreground min-h-full;
+    }
+}

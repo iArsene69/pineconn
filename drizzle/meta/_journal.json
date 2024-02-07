@@ -1,0 +1,34 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1706709217731,
+      "tag": "0000_glossy_naoko",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1706751027110,
+      "tag": "0001_material_mentallo",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706751279861,
+      "tag": "0002_known_thunderbolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1706751535533,
+      "tag": "0003_clammy_xorn",
+      "breakpoints": true
+    }
+  ]
+}
