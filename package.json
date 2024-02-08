@@ -11,12 +11,13 @@
     "db:push": "drizzle-kit push:sqlite",
     "db:pull": "drizzle-kit introspect:sqlite",
     "db:generate": "drizzle-kit generate:sqlite",
-    "db:drop": "drizzle-kit drop:sqlite",
     "db:check": "drizzle-kit check:sqlite",
-    "db:up": "drizzle-kit up:sqlite"
+    "db:up": "drizzle-kit up:sqlite",
+    "token:generate": "node jwtTokenGenerator.js"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
     "autoprefixer": "^10.4.17",
     "drizzle-kit": "^0.20.14",
     "nuxt": "^3.9.3",
@@ -36,6 +37,7 @@
     "dotenv": "^16.4.1",
     "drizzle-orm": "^0.29.3",
     "h3-zod": "^0.5.3",
+    "jsonwebtoken": "^9.0.2",
     "sass": "^1.70.0"
   }
 }

@@ -1,7 +1,8 @@
 import type { User } from "../global.types"
 
-export const useTransformer = (user: User) => {
+export const userTransformer = (user: User) => {
     return {
+        id: user.id,
         name: user.name,
         username: user.username,
         profileImg: user.profileImg,

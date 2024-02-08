@@ -1,5 +1,5 @@
-import type { User } from "~/server/global.types"
-import { useTransformer } from "~/server/transformers/user"
+import type { FormUser, User } from "~/server/global.types"
+import { userTransformer } from "~/server/transformers/user"
 import { createUser } from "~/server/turso/queries/users"
 
 export default defineEventHandler(async (event) => {
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
         return sendError(event, createError({statusCode: 400, statusMessage: "Passwords do not match"}))
     }
 
-    const userData: User = {
+    const userData: FormUser = {
         username,
         email,
         password,
@@ -24,9 +24,12 @@ export default defineEventHandler(async (event) => {
     }
 
     const user = await createUser(userData)
+    if(!user){
+        return sendError(event, createError({statusCode: 500, statusMessage: "Error creating user"}))
+    }
 
     return {
-        body: useTransformer(user)
+        body: userTransformer(user)
     }
 
 })

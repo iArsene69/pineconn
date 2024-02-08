@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     tursoDbUrl: process.env.TURSO_DB_URL,
     tursoAuthToken: process.env.TURSO_AUTH_TOKEN,
+    jwtAccessSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
+    jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET
   },
   modules: ["nuxt-icon", '@nuxtjs/tailwindcss',
   '@nuxtjs/color-mode'],
