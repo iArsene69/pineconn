@@ -47,3 +47,12 @@ export const getUserByUsername = async (username: string) => {
     return null;
   }
 };
+
+export const getUserById = async (id: number) => {
+  const db = useDB();
+  const [user] = await db.select().from(users).where(eq(users.id, id));
+
+  if(!user) return null
+
+  return user
+};

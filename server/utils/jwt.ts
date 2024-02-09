@@ -21,7 +21,8 @@ export const decodeRefreshToken = (token: string) => {
   const config = useRuntimeConfig();
 
   try {
-    return jwt.verify(token, config.jwtRefreshSecret);
+    const decodedToken = jwt.verify(token, config.jwtRefreshSecret);
+    return decodedToken
   } catch (error) {
     return null;
   }
