@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
     );
   } finally {
     sendRefreshToken(event, "");
+    event.headers.delete("user");
     return { message: "Logged out" };
   }
 });

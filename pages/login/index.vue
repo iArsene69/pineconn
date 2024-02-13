@@ -1,18 +1,27 @@
 <template>
     <div class="w-full">
         <div class="flex justify-center">
-            Logo
+            {{ token }}
         </div>
 
         <form @submit.prevent="handleLogin" class="flex flex-col justify-center gap-4">
             <UIInput v-model="data.username" label="username" placeholder="@yourusername" />
-            <UIInput v-model="data.password" label="password" placeholder="*********" />
-            <UIButton @click="handleLogin" :disabled="isButtonDisabled" />
+            <UIInput type="password" v-model="data.password" label="password" placeholder="*********" />
+            <UIButton @on-click="handleLogin" :disabled="isButtonDisabled">Login</UIButton>
         </form>
     </div>
 </template>
 
 <script setup>
+definePageMeta({
+    layout: 'custom',
+})
+
+const router = useRouter()
+
+const { useAuthToken } = useAuth()
+const token = useAuthToken()
+
 const data = reactive({
     username: '',
     password: '',
@@ -21,7 +30,7 @@ const data = reactive({
 
 async function handleLogin() {
     const { login } = useAuth()
-
+    console.log(data.username)
     data.loading = true
     try {
         await login({
@@ -32,6 +41,7 @@ async function handleLogin() {
         console.log(error)
     } finally {
         data.loading = false
+        router.push({ path: "/" })
     }
 }
 

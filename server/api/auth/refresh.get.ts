@@ -4,13 +4,14 @@ import { getUserById } from "~/server/turso/queries/users";
 export default defineEventHandler(async (event) => {
   const refreshToken = getCookie(event, "refresh_token");
 
-  if (!refreshToken) {
-    return sendError(
-      event,
-      createError({ statusCode: 401, statusMessage: "Invalid refresh token" })
-    );
-  }
+  // if (!refreshToken) {
+  //   return sendError(
+  //     event,
+  //     createError({ statusCode: 401, statusMessage: "Invalid refresh token" })
+  //   );
+  // }
 
+  //@ts-ignore
   const undecodeToken = await getRefreshTokenByToken(refreshToken);
 
   if (!undecodeToken) {

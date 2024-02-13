@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import type { User } from "~/server/global.types";
 
 export default function () {
   const useAuthToken = () => useState<string>("auth_token");
@@ -29,6 +30,7 @@ export default function () {
   }) => {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log(username, password);
         const { data } = await useFetch("/api/auth/login", {
           method: "POST",
           body: {
@@ -40,10 +42,8 @@ export default function () {
         if (!data.value) throw new Error("Invalid data");
         setToken(data.value.access_token);
         setUser(data.value.user);
-
         resolve(true);
       } catch (error) {
-        console.log(error);
         reject(error);
       }
     });
@@ -52,14 +52,13 @@ export default function () {
   const refreshToken = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await useFetch("/api/auth/refresh");
+        const data = await $fetch("/api/auth/refresh");
 
-        if (!data.value) throw new Error("Invalid data");
-        setToken(data.value.access_token);
+        if (!data) throw new Error("Invalid data");
+        setToken(data.access_token);
         resolve(true);
       } catch (error) {
-        console.log(error);
-        reject(true);
+        reject(error);
       }
     });
   };
@@ -115,6 +114,49 @@ export default function () {
     });
   };
 
+  const getRefreshToken = async () => {
+    const { data } = await useFetch("/api/auth/refresh");
+
+    return data.value?.access_token;
+  };
+
+  const getAuthUser = async (token: string) => {
+    const { data } = await useFetch("/api/auth/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data.value?.user;
+  };
+
+  const authenticatedData = async () => {
+    let authToken: string | undefined;
+    let authUser: any | undefined;
+
+    const token = await getRefreshToken();
+    // const user = await getAuthUser(token);
+    authToken = token;
+    // authUser = user;
+
+    const refreshToken = () => {
+      if (!authToken) return;
+      const jwt = jwtDecode(authToken);
+      if (!jwt.exp) return;
+      const newRefreshTime = jwt.exp - 60000;
+      setTimeout(async () => {
+        const token = await getRefreshToken();
+        authToken = token;
+        refreshToken();
+      });
+    };
+
+    return {
+      authUser,
+      authToken,
+    };
+  };
+
   const logout = () => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -142,5 +184,6 @@ export default function () {
     initAuth,
     useAuthLoading,
     logout,
+    authenticatedData,
   };
 }
