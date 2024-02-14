@@ -14,18 +14,10 @@ export default defineEventHandler(async (event) => {
 
   const token = event.headers.get("Authorization")?.split(" ")[1];
 
-  if (!token)
-    return sendError(
-      event,
-      createError({ statusCode: 401, statusMessage: "Unauthorized" })
-    );
+  if (!token) return
   const decoded = decodeAccessToken(token);
 
-  if (!decoded)
-    return sendError(
-      event,
-      createError({ statusCode: 401, statusMessage: "Unauthorized" })
-    );
+  if (!decoded) return
 
   try {
     //@ts-ignore

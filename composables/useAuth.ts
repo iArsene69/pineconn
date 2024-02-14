@@ -66,13 +66,13 @@ export default function () {
   const getUser = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await useFetch("/api/auth/user", {
+        const data = await $fetch("/api/auth/user", {
           headers: {
             Authorization: `Bearer ${useAuthToken().value}`,
           },
         });
         if (!data.value) throw new Error("Invalid data");
-        setUser(data.value?.user);
+        setUser(data.user);
         resolve(true);
       } catch (error) {
         console.log(error);
@@ -121,13 +121,14 @@ export default function () {
   };
 
   const getAuthUser = async (token: string) => {
-    const { data } = await useFetch("/api/auth/user", {
+    const data = await $fetch("/api/auth/user", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    return data.value?.user;
+    if (!data) return
+    return data.user
   };
 
   const authenticatedData = async () => {
@@ -135,9 +136,9 @@ export default function () {
     let authUser: any | undefined;
 
     const token = await getRefreshToken();
-    // const user = await getAuthUser(token);
     authToken = token;
-    // authUser = user;
+    const user = await getAuthUser(authToken);
+    authUser = user;
 
     const refreshToken = () => {
       if (!authToken) return;
@@ -150,6 +151,8 @@ export default function () {
         refreshToken();
       });
     };
+
+    
 
     return {
       authUser,
