@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <div class="flex justify-center">
-            {{ token }}
+            Login
         </div>
 
         <form @submit.prevent="handleLogin" class="flex flex-col justify-center gap-4">
@@ -18,9 +18,6 @@ definePageMeta({
 })
 
 const router = useRouter()
-
-const { useAuthToken } = useAuth()
-const token = useAuthToken()
 
 const data = reactive({
     username: '',

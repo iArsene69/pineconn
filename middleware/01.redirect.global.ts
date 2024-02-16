@@ -1,17 +1,17 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const {authenticatedData, initAuth, useAuthToken, useAuthUser} = useAuth();
-  const {authUser, authToken} = await authenticatedData();
+  const auth = useAuth();
+  await auth.authenticatedData()
 
-  console.log(authUser, authToken);
+  console.log(auth.authToken.value, auth.authUser.value);
 
   if(to.path === "/"){
-    if(!authToken){
+    if(!auth.authToken.value){
       return navigateTo('/login')
     }
   }
 
   if (["/login", "/register"].includes(to.path)) {
-    if (authToken) {
+    if (auth.authToken.value) {
       return navigateTo("/")
     }
   }

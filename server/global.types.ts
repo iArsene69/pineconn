@@ -14,3 +14,12 @@ export type FormUser = {
   email: string;
   password: string;
 }
+
+export type PublicUser = {
+  id: number;
+  name: string | null;
+  username: string | null;
+  profileImg: string | null;
+  email: string;
+  handle: string;
+}

@@ -1,7 +1,10 @@
 import { getUserByUsername } from "~/server/turso/queries/users";
 import bcrypt from "bcrypt";
 import { generateTokens, sendRefreshToken } from "~/server/utils/jwt";
-import { createRefreshToken } from "~/server/turso/queries/refreshToken";
+import {
+  createRefreshToken,
+  getRefreshTokenByUserId,
+} from "~/server/turso/queries/refreshToken";
 import { userTransformer } from "~/server/transformers/user";
 
 export default defineEventHandler(async (event) => {
@@ -34,6 +37,14 @@ export default defineEventHandler(async (event) => {
     );
   }
 
+  const savedRefreshToken = await getRefreshTokenByUserId(user.id);
+
+  if (savedRefreshToken) {
+    sendRefreshToken(event, savedRefreshToken.token);
+    return {
+      user: userTransformer(user),
+    };
+  }
   const { accessToken, refreshToken } = generateTokens(user);
 
   await createRefreshToken(refreshToken, user.id);

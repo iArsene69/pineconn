@@ -1,5 +1,6 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
+import * as schema from "~/drizzle/schema";
 
 export const useDB = () => {
   const config = useRuntimeConfig();
@@ -10,7 +11,7 @@ export const useDB = () => {
     authToken: config.tursoAuthToken,
   });
 
-  const db = drizzle(client);
+  const db = drizzle(client, {schema});
 
   return db;
 };

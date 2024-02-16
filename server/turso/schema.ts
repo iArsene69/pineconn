@@ -24,6 +24,9 @@ export const media = sqliteTable("media", {
   id: integer("id").primaryKey().notNull(),
   url: text("url").notNull(),
   publicId: text("public_id").notNull(),
+  threadId: integer("thread_id").references(() => threads.id, {
+    onDelete: "cascade",
+  }),
   userId: integer("user_id")
     .references(() => users.id, {
       onDelete: "cascade",
@@ -39,22 +42,26 @@ export const threads = sqliteTable("threads", {
       onDelete: "cascade",
     })
     .notNull(),
-  mediaId: integer("media_id").references(() => media.id),
   replyTo: integer("reply_to"),
   likeCount: integer("like_count").default(0),
 });
 
 //Relations
 
-export const threadRelations = relations(threads, ({ one }) => ({
+export const threadRelations = relations(threads, ({ one, many }) => ({
   parent: one(threads, {
     fields: [threads.replyTo],
     references: [threads.id],
   }),
+
+  media: many(media),
 }));
 
-export const threadMedia = relations(threads, ({ many }) => ({
-  media: many(media),
+export const mediaRelations = relations(media, ({ one }) => ({
+  threads: one(threads, {
+    fields: [media.threadId],
+    references: [threads.id],
+  }),
 }));
 
 export const userToken = relations(refreshToken, ({ one }) => ({
