@@ -49,9 +49,14 @@ export const threads = sqliteTable("threads", {
 //Relations
 
 export const threadRelations = relations(threads, ({ one, many }) => ({
-  parent: one(threads, {
+  replyTo: one(threads, {
     fields: [threads.replyTo],
     references: [threads.id],
+    relationName: "replies",
+  }),
+
+  replies: many(threads, {
+    relationName: "replies",
   }),
 
   media: many(media),
