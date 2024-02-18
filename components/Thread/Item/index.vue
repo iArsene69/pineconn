@@ -4,7 +4,7 @@
 
         <div :class="(compact) ? 'ml-16' : 'ml-2 mt-4'">
             <p class="flex-shrink w-auto font-medium text-foreground/80"
-                :class="(props.compact) ? 'text-base' : 'text-2xl'" >
+                :class="(props.compact) ? 'text-base' : 'text-2xl'">
                 //Thread text
             </p>
 
@@ -13,7 +13,7 @@
             </div>
 
             <div class="mt-2" v-if="!props.hideActions">
-            //Action
+                <ThreadItemActions  @on-reply-click="handleReplyClick" />
             </div>
         </div>
     </div>
@@ -34,4 +34,8 @@ const props = defineProps({
         default: false
     }
 })
+
+function handleReplyClick() {
+    //TODO: make reply click function
+}
 </script>

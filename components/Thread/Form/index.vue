@@ -5,7 +5,7 @@
         </div>
 
         <div v-else>
-            <ThreadItem   />
+            <ThreadItem />
             <ThreadFormInput :placeholder="props.placeholder" :user="props.user" @onSubmit="handleFormSubmit" />
         </div>
     </div>

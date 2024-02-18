@@ -13,40 +13,54 @@ export type FormUser = {
   profileImg: string | null;
   email: string;
   password: string;
-}
+};
 
 export type Media = {
+  id: number;
+  url: string;
+  publicId: string;
+  threadId: number;
+  userId: number;
+};
+
+export type PlainThread = {
+  id: number;
+  thread: string;
+  userId: number;
+  replyToId: number | null;
+};
+
+export type PlainLikes = {
   id: number,
-  url: string,
-  publicId: string,
-  threadId: number,
-  userId: number
+  userId: number,
+  threadId: number
 }
 
 export type Thread = {
-  id: number,
-  thread: string,
-  userId: number,
-  replyTo: number | null,
-  likeCount: number,
-  media: Media[],
-  replies: Thread[]
-}
+  id: number;
+  thread: string;
+  userId: number;
+  media: Media[];
+  replies: Thread[];
+  replyTo: PlainThread | null;
+  author: User,
+  likes: PlainLikes[]
+};
 
 export type PublicMedia = {
-  id: number,
-  url: string
-}
+  id: number;
+  url: string;
+};
 
 export type PublicThread = {
-  id: number,
-  thread: string,
-  media: PublicMedia[] | [],
-  userId: number,
-  likeCount: number,
-  replies: PublicThread[] | [],
-  repliesCount: number
-}
+  id: number;
+  thread: string;
+  media: PublicMedia[] | [];
+  userId: number;
+  likeCount: number;
+  replies: PublicThread[] | [];
+  repliesCount: number;
+};
 
 export type PublicUser = {
   id: number;
@@ -55,4 +69,4 @@ export type PublicUser = {
   profileImg: string | null;
   email: string;
   handle: string;
-}
+};

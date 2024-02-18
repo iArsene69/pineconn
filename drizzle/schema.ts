@@ -4,7 +4,6 @@ import {
   text,
   uniqueIndex,
   foreignKey,
-  type AnySQLiteColumn,
 } from "drizzle-orm/sqlite-core";
 import { relations, sql } from "drizzle-orm";
 
@@ -39,8 +38,7 @@ export const threads = sqliteTable("threads", {
   userId: integer("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  replyTo: integer("reply_to"),
-  likeCount: integer("like_count").default(0),
+  replyToId: integer("reply_to_id"),
 });
 
 export const media = sqliteTable("media", {
@@ -55,22 +53,43 @@ export const media = sqliteTable("media", {
     .references(() => users.id, { onDelete: "cascade" }),
 });
 
-//Relations
+export const likes = sqliteTable("likes", {
+  id: integer("id").primaryKey().notNull(),
+  userId: integer("user_id").references(() => users.id, {
+    onDelete: "cascade",
+  }),
+  threadId: integer("threadId").references(() => threads.id, {
+    onDelete: "cascade",
+  }),
+});
 
 export const threadRelations = relations(threads, ({ one, many }) => ({
   replyTo: one(threads, {
-    fields: [threads.replyTo],
+    fields: [threads.replyToId],
     references: [threads.id],
-	relationName: "replies"
+    relationName: "replies",
+  }),
+
+  author: one(users, {
+    fields: [threads.userId],
+    references: [users.id],
   }),
 
   replies: many(threads, {
-	relationName: "replies"
+    relationName: "replies",
   }),
+
+  likes: many(likes),
 
   media: many(media),
 }));
 
+export const likesRelations = relations(likes, ({ one }) => ({
+  thread: one(threads, {
+    fields: [likes.threadId],
+    references: [threads.id],
+  }),
+}));
 
 export const mediaRelations = relations(media, ({ one }) => ({
   threads: one(threads, {

@@ -7,9 +7,15 @@ export const getThreads = async () => {
     const allThreads = await db.query.threads.findMany({
       with: {
         media: true,
+        replyTo: true,
+        likes: true,
+        author: true,
         replies: {
           with: {
             media: true,
+            replyTo: true,
+            likes: true,
+            author: true,
             replies: true,
           },
         },
@@ -24,25 +30,61 @@ export const getThreads = async () => {
 };
 
 export const getThreadById = async (id: number) => {
-  const db = useDB()
+  const db = useDB();
 
   try {
     const threadById = await db.query.threads.findFirst({
-      where: (thr, {eq}) => eq(thr.id, id),
+      where: (thr, { eq }) => eq(thr.id, id),
       with: {
         media: true,
+        replyTo: true,
+        author: true,
+        likes: true,
         replies: {
           with: {
             media: true,
             replies: true,
+            replyTo: true,
+            author: true,
+            likes: true,
           },
         },
       },
-    })
+    });
 
-    return threadById
+    return threadById;
   } catch (error) {
-    console.log(error)
-    return null
+    console.log(error);
+    return null;
   }
-}
+};
+
+export const getThreadsBySearch = async (search: any) => {
+  const db = useDB();
+
+  try {
+    const foundThreads = await db.query.threads.findMany({
+      where: (thr, {like}) => like(thr.thread, `${search}%`),
+      with: {
+        media: true,
+        replyTo: true,
+        likes: true,
+        author: true,
+        replies: {
+          with: {
+            media: true,
+            replyTo: true,
+            likes: true,
+            author: true,
+            replies: true,
+          },
+        },
+      },
+    });
+
+    return foundThreads;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
