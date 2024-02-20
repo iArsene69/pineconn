@@ -1,4 +1,5 @@
 import { media, threads } from "~/drizzle/schema";
+import type { FormThread, PlainThread } from "~/server/global.types";
 
 export const getThreads = async () => {
   const db = useDB();
@@ -64,7 +65,7 @@ export const getThreadsBySearch = async (search: any) => {
 
   try {
     const foundThreads = await db.query.threads.findMany({
-      where: (thr, {like}) => like(thr.thread, `${search}%`),
+      where: (thr, { like }) => like(thr.thread, `${search}%`),
       with: {
         media: true,
         replyTo: true,
@@ -86,5 +87,19 @@ export const getThreadsBySearch = async (search: any) => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+export const createThread = async (threadData: FormThread) => {
+  const db = useDB();
+
+  try {
+    const [returningThread] = await db
+      .insert(threads)
+      .values(threadData)
+      .returning();
+    return returningThread;
+  } catch (error) {
+    return null;
   }
 };

@@ -30,6 +30,19 @@ export type PlainThread = {
   replyToId: number | null;
 };
 
+export type FormThread = {
+  thread: string,
+  userId: number,
+  replyToId: number | null
+}
+
+export type FormMedia = {
+  url: string,
+  publicId: string,
+  userId: number,
+  threadId: number
+}
+
 export type PlainLikes = {
   id: number,
   userId: number,

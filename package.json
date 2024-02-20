@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/formidable": "^3.4.5",
     "@types/jsonwebtoken": "^9.0.5",
     "autoprefixer": "^10.4.17",
     "drizzle-kit": "^0.20.14",
@@ -37,6 +38,8 @@
     "cloudinary": "^2.0.1",
     "dotenv": "^16.4.4",
     "drizzle-orm": "^0.29.3",
+    "formidable": "^3.5.1",
+    "h3-formidable": "^1.0.0",
     "h3-zod": "^0.5.3",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
