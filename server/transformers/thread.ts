@@ -11,6 +11,6 @@ export const threadTransformer: any = (thread: Thread) => {
     replies: !!thread.replies ? thread.replies.map(threadTransformer) : [],
     repliesCount: !!thread.replies ? thread.replies.length : 0,
     replyTo: thread.replyTo,
-    author: userTransformer(thread.author),
+    author: !!thread.author ? userTransformer(thread.author) : {},
   };
 };

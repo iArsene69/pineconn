@@ -2,7 +2,7 @@ import URLPattern from "url-pattern";
 import { getUserById } from "../turso/queries/users";
 
 export default defineEventHandler(async (event) => {
-  const endpoints = ["/api/auth/user"];
+  const endpoints = ["/api/auth/user", "/api/status/thread"];
 
   const isHandled = endpoints.some((endpoint) => {
     const pattern = new URLPattern(endpoint);
@@ -12,19 +12,19 @@ export default defineEventHandler(async (event) => {
 
   if (!isHandled) return;
 
-  const token = event.headers.get("Authorization")?.split(" ")[1];
+  const token = getCookie(event, 'refresh_token')
 
-  if (!token) return
-  const decoded = decodeAccessToken(token);
+  if (!token) return;
+  const decoded = decodeRefreshToken(token);
 
-  if (!decoded) return
+  if (!decoded) return;
 
   try {
     //@ts-ignore
     const userId = decoded.userId;
     const user = await getUserById(userId);
-    event.headers.set("user", JSON.stringify(user))
+    event.headers.set("user", JSON.stringify(user));
   } catch (error) {
-    return
+    return;
   }
 });

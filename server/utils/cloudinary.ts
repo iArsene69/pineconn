@@ -14,7 +14,7 @@ const cloudinaryMedia = () => {
 
 export const uploadToCloudinary = (file: string) => {
   return new Promise((resolve, reject) => {
-    console.log(file);
+    // console.log(file);
     cloudinaryMedia().uploader.upload(file, (error, data) => {
       if (error) reject(error);
       resolve(data);
