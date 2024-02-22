@@ -2,25 +2,25 @@
     <div class="flex p-4">
 
         <div>
-            <img src="" alt="" class="w-10 h-10 rounded-full">
+            <img :src="props.thread.author.profileImg" alt="" class="w-10 h-10 rounded-full">
         </div>
 
         <div class="ml-3">
-            <span class="font-medium text-foreground/80">//Author Name//</span>
+            <span class="font-medium text-foreground/80">{{ props.thread.author.name }}</span>
 
             <span class="ml-3 text-sm font-medium text-foreground/40">
                 <NuxtLink to="#">
-                    //Author Handle//
+                   {{ props.thread.author.handle }}
                 </NuxtLink>
             </span>
 
-            <p class="text-sm">
+            <p v-if="!!props.thread.replyTo" class="text-sm">
                 <span class="text-foreground/80">
                     Replying To
                 </span>
 
                 <NuxtLink to="#" class="text-theme-light">
-                    //Reply to Author handle//
+                  {{ props.thread.replyTo.author.handle }}
                 </NuxtLink>
             </p>
         </div>
@@ -32,7 +32,7 @@
 const props = defineProps({
     thread: {
         type: Object,
-        required: false
+        required: true
     }
 })
 

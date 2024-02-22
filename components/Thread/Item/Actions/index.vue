@@ -6,7 +6,7 @@
             </template>
 
             <template v-slot:default v-if="props.compact">
-                //Show Stats
+                {{ props.thread.likeCount }}
             </template>
         </ThreadItemActionsIcon>
 
@@ -16,7 +16,7 @@
             </template>
 
             <template v-slot:default v-if="props.compact">
-                //Show Stats
+                {{ props.thread.repliesCount }}
             </template>
         </ThreadItemActionsIcon>
 
@@ -26,7 +26,7 @@
             </template>
 
             <template v-slot:default v-if="props.compact">
-                //Show Stats
+                Direct Message
             </template>
         </ThreadItemActionsIcon>
     </div>
@@ -38,7 +38,7 @@ const emits = defineEmits(['onReplyClick'])
 const props = defineProps({
     thread: {
         type: Object,
-        required: false
+        required: true
     },
     compact: {
         type: Boolean,

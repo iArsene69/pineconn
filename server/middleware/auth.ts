@@ -12,10 +12,10 @@ export default defineEventHandler(async (event) => {
 
   if (!isHandled) return;
 
-  const token = getCookie(event, 'refresh_token')
+  const token = event.headers.get('Authorization')?.split(" ")[1]
 
   if (!token) return;
-  const decoded = decodeRefreshToken(token);
+  const decoded = decodeAccessToken(token);
 
   if (!decoded) return;
 

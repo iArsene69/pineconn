@@ -8,16 +8,23 @@ export const getThreads = async () => {
     const allThreads = await db.query.threads.findMany({
       with: {
         media: true,
-        replyTo: true,
+        replyTo: {
+          with: {
+            author: true,
+          },
+        },
         likes: true,
         author: true,
         replies: {
           with: {
             media: true,
-            replyTo: true,
+            replyTo: {
+              with: {
+                author: true,
+              },
+            },
             likes: true,
             author: true,
-            replies: true,
           },
         },
       },
@@ -38,16 +45,23 @@ export const getThreadById = async (id: number) => {
       where: (thr, { eq }) => eq(thr.id, id),
       with: {
         media: true,
-        replyTo: true,
-        author: true,
+        replyTo: {
+          with: {
+            author: true,
+          },
+        },
         likes: true,
+        author: true,
         replies: {
           with: {
             media: true,
-            replies: true,
-            replyTo: true,
-            author: true,
+            replyTo: {
+              with: {
+                author: true,
+              },
+            },
             likes: true,
+            author: true,
           },
         },
       },
@@ -68,16 +82,23 @@ export const getThreadsBySearch = async (search: any) => {
       where: (thr, { like }) => like(thr.thread, `${search}%`),
       with: {
         media: true,
-        replyTo: true,
+        replyTo: {
+          with: {
+            author: true,
+          },
+        },
         likes: true,
         author: true,
         replies: {
           with: {
             media: true,
-            replyTo: true,
+            replyTo: {
+              with: {
+                author: true,
+              },
+            },
             likes: true,
             author: true,
-            replies: true,
           },
         },
       },

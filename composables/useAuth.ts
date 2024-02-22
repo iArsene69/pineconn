@@ -42,6 +42,7 @@ export default function () {
         });
 
         if (!data.value) throw new Error("Invalid data");
+        //@ts-ignore
         authToken.value = data.value.access_token;
         authUser.value = data.value.user;
         resolve(true);

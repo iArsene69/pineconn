@@ -42,7 +42,7 @@
 <script setup>
 const whatsHappeningItems = ref([
     {
-        title: 'SpaceX',
+        title: '#GiveMeJobPlease',
         count: '18.8k Tweets'
     },
     {
@@ -50,7 +50,7 @@ const whatsHappeningItems = ref([
         count: '8.8k Tweets'
     },
     {
-        title: '#artforall',
+        title: '#GuessWhat?',
         count: '1.8k Tweets'
     }
 ])

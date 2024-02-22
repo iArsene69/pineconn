@@ -64,13 +64,13 @@
         <div class="flex flex-row items-center justify-center px-2 py-2 mx-auto mt-auto mb-5 rounded-full cursor-pointer w-14 xl:w-full hover:bg-gray-100 dark:hover:bg-theme-800"
             @click="emits('onLogout')">
             <div class="flex flex-row">
-                <img src="" alt="do not forgor about this" class="w-10 h-10 rounded-full">
+                <img :src="auth.authUser.value.profileImg" alt="do not forgor about this" class="w-10 h-10 rounded-full">
                 <div class="flex-col hidden ml-2 xl:block">
                     <h1 class="text-sm font-bold text-gray-800 dark:text-white">
-                        Username placeholder
+                        {{ auth.authUser.value.name }}
                     </h1>
                     <p class="text-sm text-gray-400">
-                        User handle
+                       {{ auth.authUser.value.handle }}
                     </p>
                 </div>
             </div>
@@ -85,8 +85,6 @@
 </template>
 
 <script setup>
-import { HomeIcon, PaperAirplaneIcon, ChevronDownIcon } from "@vue-hero-icons/solid"
-
 const emits = defineEmits(['onThread', 'onLogout'])
 
 const selectedPage = useState("selectedEnum", () => "home")
@@ -95,10 +93,6 @@ const onChangeSelected = (page) => {
     selectedPage.value = page
 }
 
-const props = defineProps({
-    user: {
-        type: Object,
-        required: false
-    }
-})
+const auth = useAuth()
+
 </script>
