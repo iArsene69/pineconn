@@ -15,7 +15,13 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
   devtools: { enabled: true },
-  css: ["~/assets/css/main.scss"],
+  css: ["~/assets/css/tailwind.css"],
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config',
+    config: {},
+    viewer: true,
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

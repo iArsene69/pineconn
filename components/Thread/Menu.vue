@@ -1,7 +1,7 @@
 <template>
-    <div class="p-2 text-theme-dark dark:text-theme-light transition-colors rounded-full cursor-pointer hover:bg-theme-dark hover:text-foreground dark:hover:bg-theme-light"
+    <div class="p-2 transition-colors rounded-full cursor-pointer text-theme-dark hover:text-foreground dark:text-theme-light dark:hover:text-foreground"
         :class="props.class" @click="handleClick">
-        <slot />
+        <slot name="icon" />
     </div>
 </template>
 

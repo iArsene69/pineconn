@@ -16,6 +16,8 @@
     "token:generate": "node jwtTokenGenerator.js"
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^3.3.2",
+    "@nuxtjs/tailwindcss": "^6.11.4",
     "@types/bcrypt": "^5.0.2",
     "@types/formidable": "^3.4.5",
     "@types/jsonwebtoken": "^9.0.5",
@@ -29,16 +31,10 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.1.1",
     "@libsql/client": "^0.5.0",
-    "@nuxt/ui": "^2.13.0",
-    "@vue-hero-icons/outline": "^1.7.2",
-    "@vue-hero-icons/solid": "^1.7.2",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.0.1",
-    "dotenv": "^16.4.4",
     "drizzle-orm": "^0.29.3",
-    "formidable": "^3.5.1",
     "h3-formidable": "^1.0.0",
     "h3-zod": "^0.5.3",
     "jsonwebtoken": "^9.0.2",

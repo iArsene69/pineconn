@@ -4,7 +4,7 @@
 
         <div :class="(compact) ? 'ml-16' : 'ml-2 mt-4'">
             <p class="flex-shrink w-auto font-medium text-foreground/80"
-                :class="(props.compact) ? 'text-base' : 'text-2xl'">
+                :class="(props.compact) ? 'text-base' : 'text-xl'">
                 {{ props.thread.thread }}
             </p>
 

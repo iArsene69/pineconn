@@ -1,10 +1,11 @@
 <template>
-    <div @click.stop.prevent class="flex items-center text-foreground/80 cursor-pointer group">
-        <div :class="`p-2 rounded-full group-hover:bg-${props.color}-100 group-hover:text-${props.color}-400 dark:group-hover:bg-opacity-20 transition-colors`">
+    <div @click.stop.prevent="emits('onClick')" class="flex items-center text-foreground/80 cursor-pointer group">
+        <div
+            :class="`p-2 rounded-full ${colorClasses} dark:group-hover:bg-opacity-20 transition-colors`">
             <slot name="icon" :class="sizeClasses" />
         </div>
 
-        <span :class="`ml-1 group-hover:text-${props.color}-40`">
+        <span :class="`ml-1 ${colorClasses}`">
             <slot />
         </span>
     </div>
@@ -18,7 +19,7 @@ const emits = defineEmits(['onClick'])
 const props = defineProps({
     color: {
         type: String,
-        required: true
+        default: 'default'
     },
     size: {
         type: String,
@@ -37,6 +38,17 @@ const sizeClasses = computed(() => {
         default:
             return 'h-6 w-6'
 
+    }
+})
+
+const colorClasses = computed(() => {
+    switch (props.color) {
+        case "like":
+            return 'group-hover:text-red-400'
+        case 'reply':
+            return 'group-hover:text-blue-400'
+        default:
+            return 'group-hover:text-green-400'
     }
 })
 

@@ -4,7 +4,7 @@
         {{ props.title }}
        </h1>
        <slot />
-       <div class="p-3 text-sm dark:text-alter text-theme-dark cursor-pointer hover:bg-foreground/30">
+       <div class="p-3 text-sm dark:text-alter text-theme-dark cursor-pointer hover:bg-foreground/10">
         More...
        </div>
     </div>

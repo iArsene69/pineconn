@@ -22,7 +22,7 @@
     }
 }
 
-@layer base{
+@layer base {
     body {
         @apply bg-background text-foreground min-h-full;
     }

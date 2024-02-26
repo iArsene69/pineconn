@@ -45,23 +45,9 @@
                 </template>
             </SidebarLeftTab>
 
-            <div class="hidden xl:block">
-                <UIButton variant="light" size="lg" @on-click="emits('onThread')">
-                    <span class="font-bold">
-                       Say something offensive
-                    </span>
-                </UIButton>
-            </div>
-
-            <div class="flex items-center xl:hidden">
-                <UIButton variant="light" size="icon" @on-click="emits('onThread')">
-                     <Icon name="iconoir:edit-pencil" />
-                </UIButton>
-            </div>
-
         </div>
 
-        <div class="flex flex-row items-center justify-center px-2 py-2 mx-auto mt-auto mb-5 rounded-full cursor-pointer w-14 xl:w-full hover:bg-gray-100 dark:hover:bg-theme-800"
+        <div class="flex flex-row items-center justify-center px-2 py-2 mx-auto mt-auto mb-5 rounded-full cursor-pointer w-14 xl:w-full hover:bg-foreground/10"
             @click="emits('onLogout')">
             <div class="flex flex-row">
                 <img :src="auth.authUser.value.profileImg" alt="do not forgor about this" class="w-10 h-10 rounded-full">
