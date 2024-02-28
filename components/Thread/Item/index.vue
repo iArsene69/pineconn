@@ -37,5 +37,6 @@ const props = defineProps({
 
 function handleReplyClick() {
     //TODO: make reply click function
+    console.log("i'm clicked")
 }
 </script>

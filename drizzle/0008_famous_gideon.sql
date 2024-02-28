@@ -1,0 +1,1 @@
+ALTER TABLE threads ADD `created_at` text NOT NULL;

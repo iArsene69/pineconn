@@ -22,10 +22,12 @@ export default defineNuxtConfig({
     config: {},
     viewer: true,
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {
+
+  //     },
+  //     autoprefixer: {},
+  //   },
+  // },
 });

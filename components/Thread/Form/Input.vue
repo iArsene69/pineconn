@@ -6,7 +6,7 @@
             </div>
 
             <div class="w-full p-2">
-                <textarea :placeholder="props.placeholder" v-model="text"
+                <textarea :placeholder="props.placeholder" v-model="thread"
                     class="w-full h-10 text-lg text-foreground/70 placeholder:text-foreground/40 bg-background border-0 focus:ring-0 focus:outline-none"></textarea>
             </div>
         </div>
@@ -120,24 +120,38 @@ const props = defineProps({
     }
 })
 
-const text = ref("")
+const thread = ref("")
 const imageInput = ref()
 const selectedFile = ref(null)
 const inputImageUrl = ref(null)
 
-const isDisabled = computed(() => text.value === "")
+const isDisabled = computed(() => thread.value === "")
 
 const emits = defineEmits(['onSubmit'])
 
 function handleFormSubmit() {
-    //TODO: handle form submit
+    emits('onSubmit', {
+        thread: thread.value,
+        media: [selectedFile.value]
+    })
 }
 
 function handleImageClick() {
-    //TODO: handle image click
+    console.log("nyahalo")
+    imageInput.value.click()
 }
 
-function handleImageChange() {
-    //TODO: handle image change
+function handleImageChange(event) {
+    const file = event.target.files[0]
+
+    selectedFile.value = file
+
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+        inputImageUrl.value = event.target.result
+    }
+
+    reader.readAsDataURL(file)
 }
 </script>

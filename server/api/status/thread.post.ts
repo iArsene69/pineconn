@@ -7,12 +7,14 @@ export default defineEventHandler(async (event) => {
   const { fields, files } = await readFiles(event);
   const user = JSON.parse(event.headers.get("user") || "{}");
 
-  console.log(fields, files);
+  console.log(fields, files)
   let threadData = {
     thread: String(fields.thread),
     userId: user.id,
     replyToId: Number(fields.replyToId) || null,
   };
+
+  console.log(threadData)
 
   const thread = await createThread(threadData);
 

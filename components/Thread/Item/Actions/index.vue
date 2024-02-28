@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-around w-full">
-        <ThreadItemActionsIcon color="like" @on-click="emits('onReplyClick')">
+        <ThreadItemActionsIcon color="like">
             <template v-slot:icon>
                 <Icon name="iconoir:heart"  />
             </template>
@@ -10,7 +10,7 @@
             </template>
         </ThreadItemActionsIcon>
 
-        <ThreadItemActionsIcon color="reply">
+        <ThreadItemActionsIcon color="reply" @on-click="emits('onReplyClick')">
             <template v-slot:icon>
                 <Icon name="iconoir:reply"  />
             </template>

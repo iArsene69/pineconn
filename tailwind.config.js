@@ -2,17 +2,12 @@
 export default {
   darkMode: ["class"],
   content: [
-    `${srcDir}/components/**/*.{vue,js,ts}`,
-    `${srcDir}/layouts/**/*.vue`,
-    `${srcDir}/pages/**/*.vue`,
-    `${srcDir}/composables/**/*.{js,ts}`,
-    `${srcDir}/plugins/**/*.{js,ts}`,
-    `${srcDir}/utils/**/*.{js,ts}`,
-    `${srcDir}/App.{js,ts,vue}`,
-    `${srcDir}/app.{js,ts,vue}`,
-    `${srcDir}/Error.{js,ts,vue}`,
-    `${srcDir}/error.{js,ts,vue}`,
-    `${srcDir}/app.config.{js,ts}`
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./plugins/**/*.{js,ts}",
+    "./app.vue",
+    "./error.vue",
   ],
   theme: {
     container: {
@@ -28,16 +23,16 @@ export default {
         square: '1 / 1',
         video: '16 / 9'
       },
-      // colors: {
-      //   background: "hsl(var(--background))",
-      //   foreground: "hsl(var(--foreground))",
-      //   theme: {
-      //     DEFAULT: "hsl(var(--theme))",
-      //     dark: "hsl(var(--theme-dark))",
-      //     light: "hsl(var(--theme-light))",
-      //   },
-      //   alter: "hsl(var(--alter))",
-      // }
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        theme: {
+          DEFAULT: "hsl(var(--theme))",
+          dark: "hsl(var(--theme-dark))",
+          light: "hsl(var(--theme-light))",
+        },
+        alter: "hsl(var(--alter))",
+      }
     },
 
   },

@@ -33,8 +33,22 @@ const props = defineProps({
 
 const loading = ref(false)
 const emits = defineEmits(['onSuccess'])
+const {postThread} = useThread()
 
 async function handleFormSubmit(data){
-    //TODO: handle form submit
+    loading.value = true
+    try {
+        const response = await postThread({
+            thread: data.thread,
+            media: data.media,
+            replyToId: props.replyTo?.id
+        })
+
+        emits('onSuccess', response.thread)
+    } catch (error) {
+        console.log(error)
+    }finally{
+        loading.value = false
+    }
 }
 </script>

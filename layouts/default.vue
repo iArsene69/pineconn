@@ -2,7 +2,7 @@
     <div class="min-h-full">
         <div class="grid grid-cols-12 mx-auto gap-2 sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-5">
 
-            <div class="hidden md:block xl:col-span-3">
+            <div class="hidden xl:block xl:col-span-3">
                 <div class="sticky top-0">
                     <SidebarLeft />
                 </div>
@@ -12,7 +12,7 @@
                 <slot />
             </main>
 
-            <div class="hidden md:block xl:col-span-3">
+            <div class="hidden xl:block xl:col-span-3">
                 <div class="sticky top-0">
                     <SidebarRight />
                 </div>

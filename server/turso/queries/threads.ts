@@ -111,8 +111,13 @@ export const getThreadsBySearch = async (search: any) => {
   }
 };
 
-export const createThread = async (threadData: FormThread) => {
+export const createThread = async (thread: FormThread) => {
   const db = useDB();
+  const date = new Date();
+  let threadData = {
+    ...thread,
+    createdAt: date.toISOString(),
+  };
 
   try {
     const [returningThread] = await db

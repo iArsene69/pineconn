@@ -43,6 +43,7 @@ export const threads = sqliteTable("threads", {
     })
     .notNull(),
   replyToId: integer("reply_to_id"),
+  createdAt: text('created_at').notNull()
 });
 
 export const likes = sqliteTable("likes", {
