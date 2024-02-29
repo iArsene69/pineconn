@@ -18,9 +18,15 @@
                 </div>
             </div>
         </div>
+        <UIDialog :isOpen="postThreadModal" @on-close="closeThreadModal">
+            <ThreadForm :replyTo="replyThread" showReply :user="auth.authUser.value" />
+        </UIDialog>
     </div>
 </template>
 
 <script setup>
+const { postThreadModal, closeThreadModal, replyThread } = useThread()
+const auth = useAuth()
+
 
 </script>

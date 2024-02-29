@@ -1,13 +1,30 @@
 export default () => {
-  const replyThread = useState("reply_thread", () => null);
+  const replyThread = useState<{} | null>("reply_thread", () => null);
   const auth = useAuth();
 
   const postThreadModal = useState("post_thread_modal", () => false);
   const replyToId = useState<number | null>("reply_to_id", () => null);
 
-  const openThreadModal = (threadId: number) => {
+  const openThreadModal = async (threadId: number) => {
+    const replyTo = await getThreadById(threadId);
+    replyThread.value = replyTo;
     postThreadModal.value = true;
     replyToId.value = threadId;
+  };
+
+  const closeThreadModal = () => {
+    postThreadModal.value = false;
+  };
+
+  const getThreadById = async (threadId: number) => {
+    const data = await $fetch(`/api/threads/${threadId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.authToken.value}`,
+      },
+    });
+
+    return data;
   };
 
   const getThreads = async (params = {}) => {
@@ -50,5 +67,10 @@ export default () => {
   return {
     getThreads,
     postThread,
+    openThreadModal,
+    closeThreadModal,
+    postThreadModal,
+    replyToId,
+    replyThread
   };
 };

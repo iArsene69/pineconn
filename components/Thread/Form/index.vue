@@ -31,6 +31,8 @@ const props = defineProps({
     }
 })
 
+console.log(props.replyTo)
+
 const loading = ref(false)
 const emits = defineEmits(['onSuccess'])
 const {postThread} = useThread()

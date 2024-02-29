@@ -13,7 +13,7 @@
             </div>
 
             <div class="mt-2" v-if="!props.hideActions">
-                <ThreadItemActions :thread="props.thread" :compact="props.compact"  @on-reply-click="handleReplyClick" />
+                <ThreadItemActions :thread="props.thread" :compact="props.compact"  @on-reply-click="openThreadModal(props.thread.id)" />
             </div>
         </div>
     </div>
@@ -35,8 +35,10 @@ const props = defineProps({
     }
 })
 
-function handleReplyClick() {
+const {openThreadModal} = useThread()
+
+function handleReplyClick(threadId) {
     //TODO: make reply click function
-    console.log("i'm clicked")
+    
 }
 </script>
