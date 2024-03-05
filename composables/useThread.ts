@@ -6,8 +6,6 @@ export default () => {
   const replyToId = useState<number | null>("reply_to_id", () => null);
 
   const openThreadModal = async (threadId: number) => {
-    const replyTo = await getThreadById(threadId);
-    replyThread.value = replyTo;
     postThreadModal.value = true;
     replyToId.value = threadId;
   };
@@ -16,29 +14,30 @@ export default () => {
     postThreadModal.value = false;
   };
 
-  const getThreadById = async (threadId: number) => {
-    const data = await $fetch(`/api/threads/${threadId}`, {
+  const getThreadById = async () => {
+    const data = await $fetch(`/api/threads/${replyToId.value}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.authToken.value}`,
       },
     });
 
+    console.log(data)
+
     return data;
   };
 
   const getThreads = async (params = {}) => {
     try {
-      const data = await $fetch("/api/threads", {
+      const {data: threads} = await useAsyncData("threads", () => $fetch("/api/threads", {
         method: "GET",
         params,
         headers: {
           Authorization: `Bearer ${auth.authToken.value}`,
         },
-      });
+      }))
 
-      console.log(data);
-      return data;
+      return threads.value;
     } catch (error) {
       console.log(error);
       return [];
@@ -55,13 +54,38 @@ export default () => {
       form.append(`media_${idx}`, mda);
     });
 
-    return $fetch("/api/status/thread", {
-      method: "POST",
+    const prevThreads = ref([])
+
+    const {data: threads} = useNuxtData('threads')
+
+    console.log(threads.value)
+
+    return $fetch('/api/status/thread', {
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${auth.authToken.value}`,
       },
       body: form,
-    });
+      onRequest(){
+        prevThreads.value = threads.value
+
+        threads.value.push(form)
+      },
+      onRequestError(){
+        threads.value = prevThreads.value
+      },
+      async onResponse(){
+        await refreshNuxtData('threads')
+      }
+    })
+
+    // return $fetch("/api/status/thread", {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: `Bearer ${auth.authToken.value}`,
+    //   },
+    //   body: form,
+    // });
   };
 
   return {
@@ -71,6 +95,7 @@ export default () => {
     closeThreadModal,
     postThreadModal,
     replyToId,
-    replyThread
+    replyThread,
+    getThreadById
   };
 };

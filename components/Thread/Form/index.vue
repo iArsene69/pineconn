@@ -5,7 +5,9 @@
         </div>
 
         <div v-else>
-            <ThreadItem :thread="props.replyTo" v-if="props.replyTo && props.showReply" hideActions />
+            
+            <ThreadItem :thread="props.replyTo" v-if="props.replyTo && props.showReply" hideActions compact />
+            <hr v-if="props.showReply" class="w-full h-1/2 mt-3 bg-foreground">
             <ThreadFormInput :placeholder="props.placeholder" :user="props.user" @onSubmit="handleFormSubmit" />
         </div>
     </div>
@@ -31,11 +33,10 @@ const props = defineProps({
     }
 })
 
-console.log(props.replyTo)
-
 const loading = ref(false)
 const emits = defineEmits(['onSuccess'])
 const {postThread} = useThread()
+
 
 async function handleFormSubmit(data){
     loading.value = true
