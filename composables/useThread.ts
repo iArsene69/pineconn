@@ -54,39 +54,29 @@ export default () => {
       form.append(`media_${idx}`, mda);
     });
 
-    const prevThreads = ref([])
-
-    const {data: threads} = useNuxtData('threads')
-
-    console.log(threads.value)
-
     return $fetch('/api/status/thread', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${auth.authToken.value}`,
       },
       body: form,
-      onRequest(){
-        prevThreads.value = threads.value
-
-        threads.value.push(form)
-      },
-      onRequestError(){
-        threads.value = prevThreads.value
-      },
       async onResponse(){
         await refreshNuxtData('threads')
       }
     })
-
-    // return $fetch("/api/status/thread", {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${auth.authToken.value}`,
-    //   },
-    //   body: form,
-    // });
   };
+
+  const giveLike = (threadId: number) => {
+    return $fetch('/api/status/like', {
+      headers: {
+        Authorization: `Bearer ${auth.authToken.value}`,
+      },
+      body: {
+        threadId
+      },
+      /// TODO: Make optimistic UI update
+    })
+  }
 
   return {
     getThreads,
@@ -96,6 +86,7 @@ export default () => {
     postThreadModal,
     replyToId,
     replyThread,
-    getThreadById
+    getThreadById,
+    giveLike
   };
 };

@@ -1,4 +1,5 @@
-import { media, threads } from "~/drizzle/schema";
+import { and, eq } from "drizzle-orm";
+import { likes, media, threads } from "~/drizzle/schema";
 import type { FormThread, PlainThread } from "~/server/global.types";
 
 export const getThreads = async () => {
@@ -128,4 +129,35 @@ export const createThread = async (thread: FormThread) => {
   } catch (error) {
     return null;
   }
+};
+
+export const doLike = async (threadId: number, userId: number) => {
+  const db = useDB();
+  try {
+    await db.insert(likes).values({ userId, threadId });
+  } catch (error) {
+    return;
+  }
+};
+
+export const undoLike = async (threadId: number, userId: number) => {
+  const db = useDB()
+  try {
+    await db.delete(likes).where(and(eq(likes.threadId, threadId), eq(likes.userId, userId)))
+  } catch (error) {
+    return
+  }
+}
+
+export const isAlreadyLike = async (threadId: number, userId: number) => {
+  const db = useDB();
+
+  const isLike = await db.query.likes.findFirst({
+    where: (like, { eq, and }) =>
+      and(eq(like.threadId, threadId), eq(like.userId, userId)),
+  });
+
+  if (!isLike) return false;
+
+  return true;
 };

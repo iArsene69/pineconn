@@ -14,8 +14,6 @@ export default defineEventHandler(async (event) => {
     replyToId: Number(fields.replyToId) || null,
   };
 
-  console.log(threadData)
-
   const thread = await createThread(threadData);
 
   if (!thread)

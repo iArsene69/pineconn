@@ -37,20 +37,28 @@ const getById = () => {
     threadById.value = thread
 }
 
+const fetchThreads = async () => {
+    loading.value = true
+    try {
+        const { threads } = await getThreads()
+    
+        threadFeed.value = threads
+    
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false
+    }
+}
+
+const { data: threads } = useNuxtData('threads')
+
 watch(() => replyToId.value, () => getById())
 
+watch(() => threads.value, () => fetchThreads())
 
-loading.value = true
-try {
-    const { threads } = await getThreads()
+onNuxtReady(() => fetchThreads())
 
-    threadFeed.value = threads
-
-} catch (error) {
-    console.log(error)
-} finally {
-    loading.value = false
-}
 
 
 function handleFormSuccess(thread) {
