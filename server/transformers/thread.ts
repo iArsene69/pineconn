@@ -1,8 +1,8 @@
-import type { PublicThread, Thread } from "../global.types";
+import type { PublicThread, ShowReplyTo, ShowThread, Thread } from "../global.types";
 import { mediaTransformer } from "./media";
 import { userTransformer } from "./user";
 
-const replyToTransformer = (replyTo: any) => {
+const replyToTransformer = (replyTo: any): ShowReplyTo => {
   return {
     id: replyTo.id,
     thread: replyTo.thread,
@@ -10,7 +10,7 @@ const replyToTransformer = (replyTo: any) => {
   }
 }
 
-export const threadTransformer: any = (thread: Thread) => {
+export const threadTransformer = (thread: any): ShowThread => {
   return {
     id: thread.id,
     thread: thread.thread,

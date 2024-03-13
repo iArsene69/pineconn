@@ -1,6 +1,6 @@
-import type { User } from "../global.types"
+import type { PublicUser, User } from "../global.types"
 
-export const userTransformer = (user: User) => {
+export const userTransformer = (user: User): PublicUser => {
     return {
         id: user.id,
         name: user.name,

@@ -7,27 +7,26 @@ export default defineNuxtConfig({
     jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
     cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
     cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
-    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
   },
-  modules: ["nuxt-icon", '@nuxtjs/tailwindcss',
-  '@nuxtjs/color-mode'],
-  colorMode:{
-    classSuffix: ''
+  modules: [
+    "nuxt-icon",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/color-mode",
+    "@pinia/nuxt",
+  ],
+  colorMode: {
+    classSuffix: "",
   },
   devtools: { enabled: true },
   css: ["~/assets/css/tailwind.css"],
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
-    configPath: 'tailwind.config',
+    cssPath: "~/assets/css/tailwind.css",
+    configPath: "tailwind.config",
     config: {},
     viewer: true,
   },
-  // postcss: {
-  //   plugins: {
-  //     tailwindcss: {
-
-  //     },
-  //     autoprefixer: {},
-  //   },
-  // },
+  pinia: {
+    storesDirs: ["./stores/**"],
+  },
 });

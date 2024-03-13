@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-around w-full">
-        <ThreadItemActionsIcon color="like">
+        <ThreadItemActionsIcon color="like" @on-click="emits('onLikeClick')">
             <template v-slot:icon>
                 <Icon name="iconoir:heart"  />
             </template>
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-const emits = defineEmits(['onReplyClick'])
+const emits = defineEmits(['onReplyClick', 'onLikeClick'])
 
 const props = defineProps({
     thread: {

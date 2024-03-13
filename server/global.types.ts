@@ -65,6 +65,23 @@ export type PublicMedia = {
   url: string;
 };
 
+export type ShowReplyTo = {
+  id: number,
+  thread: string,
+  author: PublicUser | {}
+}
+
+export type ShowThread = {
+  id: number,
+  thread: string,
+  media: PublicMedia[] | [],
+  likeCount: number,
+  replies: ShowThread[] | [],
+  repliesCount: number,
+  replyTo: ShowReplyTo | null,
+  author: PublicUser | {}
+}
+
 export type PublicThread = {
   id: number;
   thread: string;

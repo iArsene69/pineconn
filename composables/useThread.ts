@@ -22,26 +22,24 @@ export default () => {
       },
     });
 
-    console.log(data)
+    console.log(data);
 
     return data;
   };
 
   const getThreads = async (params = {}) => {
-    try {
-      const {data: threads} = await useAsyncData("threads", () => $fetch("/api/threads", {
-        method: "GET",
-        params,
-        headers: {
-          Authorization: `Bearer ${auth.authToken.value}`,
-        },
-      }))
+    const { data, refresh } = await useFetch("/api/threads", {
+      key: "threads",
+      method: "GET",
+      params,
+      headers: {
+        Authorization: `Bearer ${auth.authToken.value}`,
+      },
+    });
 
-      return threads.value;
-    } catch (error) {
-      console.log(error);
-      return [];
-    }
+    if (!data) return { threads: [], refreshFn: () => null };
+
+    return { threads: data.value?.threads, refreshFn: refresh };
   };
 
   const postThread = (formData: any) => {
@@ -54,29 +52,30 @@ export default () => {
       form.append(`media_${idx}`, mda);
     });
 
-    return $fetch('/api/status/thread', {
-      method: 'POST',
+    return $fetch("/api/status/thread", {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${auth.authToken.value}`,
       },
       body: form,
-      async onResponse(){
-        await refreshNuxtData('threads')
-      }
-    })
+      async onResponse() {
+        const { refreshFn } = await getThreads();
+        await refreshFn();
+      },
+    });
   };
 
   const giveLike = (threadId: number) => {
-    return $fetch('/api/status/like', {
+    return $fetch("/api/status/like", {
       headers: {
         Authorization: `Bearer ${auth.authToken.value}`,
       },
       body: {
-        threadId
+        threadId,
       },
       /// TODO: Make optimistic UI update
-    })
-  }
+    });
+  };
 
   return {
     getThreads,
@@ -87,6 +86,6 @@ export default () => {
     replyToId,
     replyThread,
     getThreadById,
-    giveLike
+    giveLike,
   };
 };

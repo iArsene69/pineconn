@@ -10,7 +10,7 @@
                 <div class="border-b border-foreground/40">
                     <ThreadForm :user="auth.authUser.value" @on-success="handleFormSuccess" />
                 </div>
-                <ThreadFeedList :threads="threadFeed" />
+                <ThreadFeedList :threads="store.threads" />
             </MainSection>
         </div>
         <UIDialog :isOpen="postThreadModal" @on-close="closeThreadModal">
@@ -21,14 +21,17 @@
 </template>
 
 <script setup>
+import { useThreadStore } from '~/stores/useThreadStore';
+
 const auth = useAuth()
+const store = useThreadStore()
 
 const { getThreads, postThreadModal, closeThreadModal, replyToId } = useThread()
 const loading = ref(false)
 const threadFeed = ref([])
 const threadById = ref({})
 
-
+await useAsyncData('threads', async () => store.getThreads())
 
 
 const getById = () => {
@@ -37,27 +40,12 @@ const getById = () => {
     threadById.value = thread
 }
 
-const fetchThreads = async () => {
-    loading.value = true
-    try {
-        const { threads } = await getThreads()
-    
-        threadFeed.value = threads
-    
-    } catch (error) {
-        console.log(error)
-    } finally {
-        loading.value = false
-    }
-}
-
-const { data: threads } = useNuxtData('threads')
 
 watch(() => replyToId.value, () => getById())
 
-watch(() => threads.value, () => fetchThreads())
+// watch(() => threads.value, () => fetchThreads())
 
-onNuxtReady(() => fetchThreads())
+// onNuxtReady(() => fetchThreads())
 
 
 
